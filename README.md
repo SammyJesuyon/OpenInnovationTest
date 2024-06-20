@@ -9,7 +9,6 @@ This is a Flask-based web application that processes image data from a CSV file,
 - [Running Locally](#running-locally)
 - [Docker Deployment](#docker-deployment)
 - [API Endpoints](#api-endpoints)
-- [License](#license)
 
 
 ## Setup
