@@ -86,3 +86,7 @@ This is a Flask-based web application that processes image data from a CSV file,
 ```sh
 curl "http://localhost:3000/image_frames?depth_min=9000&depth_max=9010"
 ```
+
+### Using Swagger
+
+Open a web browser and navigate to http://localhost:3000/apidocs to see the Swagger UI with API documentation.
