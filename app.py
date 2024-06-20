@@ -5,8 +5,10 @@ from PIL import Image
 import io
 from processImage import applyCustomColormap
 import initializeDB
+from flasgger import Swagger
 
 app = Flask(__name__)
+swagger = Swagger(app)
 
 @app.route('/')
 def home():
@@ -14,6 +16,33 @@ def home():
 
 @app.route('/image_frames', methods=['GET'])
 def get_image_frames():
+    """
+    Retrieve image frames based on depth values.
+    ---
+    parameters:
+      - name: depth_min
+        in: query
+        type: integer
+        required: true
+        description: Minimum depth value.
+        default: 9000
+      - name: depth_max
+        in: query
+        type: integer
+        required: true
+        description: Maximum depth value.
+        default: 9010
+    responses:
+      200:
+        description: A PNG image of the combined frames.
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+      404:
+        description: No frames found for the given depth range.
+    """
     try:
         depth_min = int(request.args.get('depth_min'))
         depth_max = int(request.args.get('depth_max'))
@@ -58,3 +87,7 @@ if __name__ == '__main__':
     except Exception as e:
         print(f"Error initializing database: {e}")
     app.run(host='0.0.0.0', port=3000)
+    app.config['SWAGGER'] = {
+    'title': 'Image Frames API',
+    'uiversion': 3
+}
